@@ -34,3 +34,15 @@ if(isset($_SESSION["code"])){
     echo ('<br><br><br><a href="logout/logout_user.php">Log Out</a>');
 
 }
+
+if(isset($_SESSION["level"])) {
+
+    if ($_SESSION["level"] == "Admin") {
+        echo("<br><br> Special Admin Tasks:<br>
+        <a href='remove/user_visibility.php'>Manage User Visibility</a><br>");
+
+    }
+else{
+    echo("<br>");
+}
+}
