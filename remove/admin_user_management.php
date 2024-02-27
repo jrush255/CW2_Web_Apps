@@ -219,7 +219,7 @@ if(isset($_SESSION["level"])) {
 
         } //Users and Guests cannot use this page
         else if ($_SESSION["level"] == "User" or $_SESSION["level"] == "Guest") {
-            echo("You do not have permission to remove users " . $_SESSION["user"] . ". You are a " . $_SESSION["level"]);
+            echo("You do not have permission to manage users " . $_SESSION["user"] . ". You are a " . $_SESSION["level"]);
         } //Hopefully shouldn't see this message
         else {
             echo("PLZ FIX");
