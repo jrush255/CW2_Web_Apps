@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="../styles.css" />
+</head>
+<body>
+
+<ul>
+    <li><a class="active" href="../index.php">Home</a></li>
+    <li style="float:right"><a href="../login/login_user.php">Log in</a></li>
+    <li style="float:right"><a href="created_user.php">Register</a></li>
+</ul>
+
+<h1></h1>
+
+
+</body>
+</html>
+
+<?php
+//Session to check privilege level
+session_start();
+
+if(isset($_SESSION["level"])){
+
+    if($_SESSION["level"] == "Admin")
+    {
+        echo ("You are an Admin " . $_SESSION["user"] . ". Use this page to create new users<br><br>");
+
+        echo("<h1> Create new user account</h1>
+            <form action='created_user.php' method='post'>
+                Username: <input type='text' name='username' required><br>
+                Forename: <input type='text' name='fname' required><br>
+                Surname: <input type='text' name='sname' required><br>
+                E-mail: <input type='email' name='email' required><br>
+                Password: <input type='password' name='password' required><br>
+                User Level: <select name='access_level'>
+                <option value='Guest'>Guest</option>
+                <option value='User'>User</option>
+                <option value='Admin'>Admin</option>
+                </select><br>
+                Register: <input type='submit' name='submit'>
+            </form>");
+
+        //Login info
+        $server_name = "localhost";
+        $username = "WA_Insert";
+        $password = "Qx1XYuEStetL2@2z";
+
+        //Create connection
+        $conn = new mysqli($server_name, $username, $password);
+        //Check connection
+        if ($conn->connect_error)
+        {
+            die("Connection Failed: " . $conn->connect_error);
+        }
+        else{
+            echo("Connection Success <br>");
+        }
+
+        //Runs after input information has been submitted
+        if(isset($_POST['submit'])){
+
+            $user = $_POST['username'];
+            $fname = $_POST['fname'];
+            $sname = $_POST['sname'];
+            $email = $_POST['email'];
+            $user_password = $_POST['password'];
+            $access_level = $_POST['access_level'];
+
+            try {
+                $sql = "INSERT INTO credentials.methodone (`username`, `forename`, `surname`, `email`, `password`, `user_level`) VALUES (?,?,?,?,?,?)";
+                $stmt = $conn->prepare($sql);
+                $hashed_password = password_hash($user_password, PASSWORD_DEFAULT);
+                $stmt->bind_param('ssssss', $user, $fname, $sname, $email, $hashed_password, $access_level);
+                if ($stmt->execute()) {
+                    echo "The " . $access_level . " " . $user . " has been created!";
+                }
+            }
+            catch(mysqli_sql_exception $error){
+                $code = $error->getCode();
+                if($code = 1062){
+                    echo "User already exists";
+                }
+            }
+        }
+
+
+
+    }
+    //Users and Guests cannot create users
+    else if($_SESSION["level"] == "User" or $_SESSION["level"] == "Guest")
+    {
+        echo("You do not have permission to register users " . $_SESSION["user"] . ". You are a " . $_SESSION["level"]);
+    }
+    //Hopefully shouldn't see this message
+    else
+    {
+        echo("PLZ FIX");
+    }
+
+
+}
+else{
+    echo("<br>To potentially view this page, please <a href='../login/login_user.php'>log in</a> first.");
+}
+
+
+
+
