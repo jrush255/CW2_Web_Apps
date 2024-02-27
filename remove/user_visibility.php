@@ -19,7 +19,7 @@ session_start();
 if(isset($_SESSION["level"])) {
 
     if ($_SESSION["level"] == "Admin") {
-        echo("You are an Admin " . $_SESSION["user"] . ". Use this page to hide or remove users<br><br>");
+        echo("You are an Admin " . $_SESSION["user"] . ". Use this page to hide, reinstate or remove users<br><br>");
 
         //Used for outputting users to a drop-down list
         $server_name = "localhost";
@@ -42,7 +42,7 @@ if(isset($_SESSION["level"])) {
         $sql = 'SELECT * FROM credentials.methodone WHERE marked_for_deletion = "N"';
 
         echo("<h3> Hide User</h3>
-                <form action='admin_user_management.php' method='post'>
+                <form action='user_visibility.php' method='post'>
                 Select User: <select name='username'>");
 
         //Outputs all usernames - now to put it in a form
@@ -63,7 +63,7 @@ if(isset($_SESSION["level"])) {
         $sql = 'SELECT * FROM credentials.methodone WHERE marked_for_deletion = "Y"';
 
         echo("<h3>Reinstate User</h3>
-                <form action='admin_user_management.php' method='post'>
+                <form action='user_visibility.php' method='post'>
                 Select User: <select name='username'>");
         //Get and output usernames
         $result = $conn->query($sql);
@@ -83,7 +83,7 @@ if(isset($_SESSION["level"])) {
         $sql = 'SELECT * FROM credentials.methodone WHERE marked_for_deletion = "Y"';
 
         echo("<h3>Delete User</h3>
-                <form action='admin_user_management.php' method='post'>
+                <form action='user_visibility.php' method='post'>
                 Select User: <select name='username'>");
         //Get and output usernames
         $result = $conn->query($sql);
