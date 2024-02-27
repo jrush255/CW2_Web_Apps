@@ -100,6 +100,7 @@ if(isset($_SESSION["level"])) {
         //close connection to free up later
         $conn->close();
         // Do need this as the connection will need to re-open as either delete or update
+        //change
 
 
 
