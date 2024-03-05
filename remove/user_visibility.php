@@ -45,7 +45,7 @@ if(isset($_SESSION["level"])) {
                 <form action='user_visibility.php' method='post'>
                 Select User: <select name='username'>");
 
-        //Outputs all usernames - now to put it in a form
+        //Outputs all usernames
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             // Output data of each row
@@ -99,7 +99,6 @@ if(isset($_SESSION["level"])) {
 
         //close connection to free up later
         $conn->close();
-        // Do need this as the connection will need to re-open as either delete or update
 
         //Code for hiding users
         if (isset($_POST['submit_temp_del'])) {

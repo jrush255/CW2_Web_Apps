@@ -7,7 +7,6 @@
 <body>
 <ul>
     <li><a class="active" href="index.php">Home</a></li>
-    <li><a href="admintest.php">TEST</a></li>
     <li style="float:right"><a href="login/login_user.php">Log in</a></li>
     <li style="float:right"><a href="registration/created_user.php">Register</a></li>
 </ul>
