@@ -35,6 +35,7 @@ if(isset($_SESSION["level"])) {
         echo ('
                 
                 <li style="float:right"><a href="../registration/created_user.php">Register</a></li>
+                <li style="float:right"><a href="../remove/user_visibility.php">Manage User Visibility</a></li>
               ');
 
     }

@@ -4,9 +4,8 @@
 </head>
 <body>
 <ul>
-    <li><a class="active" href="../index.php">Home</a></li>
-    <li style="float:right"><a href="login_user.php">Log in</a></li>
-    <li style="float:right"><a href="../registration/created_user.php">Register</a></li>
+    <li><a href="../index.php">Home</a></li>
+    <li style="float:right"><a class="active" href="login_user.php">Log in</a></li>
 </ul>
 
 
@@ -22,6 +21,9 @@
 </html>
 
 <?php
+
+session_start();
+
 
 //Check info is correct against the database
 //prepare statements before checking to prevent database from being dropped
@@ -83,7 +85,6 @@ if(isset($_POST['submit'])){
                 }
 
 
-                session_start();
                 $_SESSION ["code"] = $userID;
                 $_SESSION["user"] = $user;
                 $_SESSION["level"] = $permissions;
