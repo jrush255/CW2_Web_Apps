@@ -1,6 +1,7 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="../styles.css" />
+    <title>Log in</title>
 </head>
 <body>
 <ul>
@@ -23,7 +24,6 @@
 <?php
 
 session_start();
-
 
 //Check info is correct against the database
 //prepare statements before checking to prevent database from being dropped

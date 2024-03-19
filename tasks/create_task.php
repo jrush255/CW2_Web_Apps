@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="../styles.css" />
+    <title>Create Tasks</title>
 </head>
 
 <body>

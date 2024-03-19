@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="../styles.css" />
-    <title>Manage USer Visibility</title>
+    <title>Manage User Visibility</title>
 </head>
 
 <body>
