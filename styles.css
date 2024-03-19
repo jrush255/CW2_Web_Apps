@@ -28,3 +28,13 @@ li a:hover {
 .active {
     background-color: #04AA6D;
 }
+
+/* Style for viewing tasks */
+tr:nth-child(even) {
+    background-color: #D6EEEE;
+}
+th, td {
+    padding: 10px;
+    padding-left: 20px;
+    text-align: left;
+}

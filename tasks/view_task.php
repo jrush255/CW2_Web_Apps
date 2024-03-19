@@ -4,8 +4,8 @@
     <link rel="stylesheet" type="text/css" href="../styles.css" />
     <title>View Tasks</title>
 </head>
-
 <body>
+
 
 </body>
 </html>
@@ -46,3 +46,60 @@ else{
     echo ('<br><h2><a href="../login/login_user.php">Log in</a> to view this page.</h2>');
 }
 //End Nav Stuff
+
+//Output tasks in a table format
+
+//Server login
+$server_name = "localhost";
+$username = "WA_Select";
+$password = "AZP3Y4F5Bdf1AYO.";
+
+$conn = new mysqli($server_name, $username, $password);
+//Check connection
+if ($conn->connect_error) {
+    die("Connection Failed: " . $conn->connect_error);
+} else {
+    echo("Connection Success <br>");
+}
+if(isset($_SESSION["level"])) {
+//Find tasks associated with user
+    $user = $_SESSION["user"];
+
+    $sql = 'SELECT * FROM credentials.tasktable WHERE username = ?';
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('s', $user);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    //Could add an option here to order tasks based on priority
+
+
+//Outputs all tasks
+    echo("
+    <table>
+    <tr>
+        <th>Title</th>
+        <th>Contents</th>
+        <th>Progress</th>
+        <th>Priority</th>
+        <th>Completion Date</th>
+    </tr>
+");
+    if ($result->num_rows > 0) {
+        // Output data of each row
+        while ($row = $result->fetch_assoc()) {
+            $title = $row['task_title'];
+            $content = $row['task_content'];
+            $progress = $row['task_progress'];
+            $priority = $row['task_priority'];
+            $completion = $row['task_completion_date'];
+            echo("<tr>
+                <td>$title</td>
+                <td>$content</td>
+                <td>$progress</td>
+                <td>$priority</td>
+                <td>$completion</td>
+             </tr>");
+        }
+    }
+}
