@@ -55,6 +55,18 @@ else{
 //Form appears with fields for each section that allows user to input stuff and overwrite task entry on database
 // // Handle form submission for adding items
 
+//SQL Code to output task title to drop down box
+//DD Box to select task, click button to submit
+//Outputs task info (username (admin option), title, contents, progress, priority, hidden (admin option), modified date)
+
+//Boxes to edit task then appear
+//button to submit edits
+//SQL code for updating that row
+//Output (error/successful)
+
+
+
+
 //Use this code for outputting the current info for tasks
 //if ($_SERVER['REQUEST_METHOD'] === 'POST') {}
 
