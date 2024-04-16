@@ -51,71 +51,64 @@ else{
 }
 //End Nav
 
-if(isset($_SESSION["level"]) and ($_SESSION["level"]) != "Guest") {
 
+//say task has now been updated
+//sql query to fetch new title from database
+//output the newly updated task
+if(isset($_SESSION["level"]) and ($_SESSION["level"]) != "Guest") {
+    //Log into server
     $server_name = "localhost";
     $username = "WA_Update";
     $password = "da5uTkIz)0h8aJ[U";
 
-    //Form for hiding (marking for deletion) users
     $conn = new mysqli($server_name, $username, $password);
     //Check connection
     if ($conn->connect_error) {
         die("Connection Failed: " . $conn->connect_error);
     } else {
-        echo("Connection Success <br>");
+        echo("<br>");
     }
 
-    if ($_SESSION["level"] == "User") {
+    //Get entries from previous page
+    $oldTitle = $_POST['oldTitle'];
+    $newTitle = $_POST['newTitle'];
+    $newContent = $_POST['newContent'];
+    $newProgress = $_POST['newProgress'];
+    $newPriority = $_POST['newPriority'];
+    $newCompletionDate = $_POST['newCompletionDate'];
+    $hideTask = $_POST['hideTask'];
 
-
-    }
 
     if ($_SESSION["level"] == "Admin") {
-        $sql = 'SELECT * FROM credentials.tasktable WHERE 1';
-        $result = $conn->query($sql);
+        $newUsername = $_POST['username'];
 
-        echo("<h3>Select Task</h3>
-                <form action='edit_task2.php' method='post'>
-                Task Name: <select name='posted_task_title'>");
-
-        //Outputs all usernames
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
-            // Output data of each row
-            while ($row = $result->fetch_assoc()) {
-                $data = $row['task_title'];
-                echo '<option value="' . $data . '">'. $data . '</option>';
-            }
-        }
-
-        echo('</select><br>Create: <input type="submit" id="submit" name="submit"><br><br>
-            </form>');
-
-    }
-    else if($_SESSION["level"] == "User"){
-        //Find tasks associated with user
-        $user = $_SESSION["user"];
-
-        echo("<h3>Select Task</h3>
-                <form action='edit_task2.php' method='post'>
-                Task Name: <select name='posted_task_title'>");
-
-        $sql = 'SELECT * FROM credentials.tasktable WHERE username = ? AND task_hidden = "N"';
+        //Grab the right user ID for the selected user from drop-down
+        $sql = 'SELECT user_id FROM credentials.methodone WHERE username = ?';
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('s', $user);
+        $stmt->bind_param('s', $newUsername);
         $stmt->execute();
         $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        $newUserID = $row['user_id'];
 
-        if ($result->num_rows > 0) {
-            // Output data of each row
-            while ($row = $result->fetch_assoc()){
-                $data = $row['task_title'];
-                echo '<option value="' . $data . '">'. $data . '</option>';
-            }
+        $sql = 'UPDATE credentials.tasktable SET user_id = ?, username = ?, task_title = ?, task_content = ?, task_progress = ?, task_priority = ?, task_completion_date = ?, task_hidden = ? WHERE task_title = ?;';
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('sssssssss', $newUserID, $newUsername,$newTitle,$newContent,$newProgress,$newPriority,$newCompletionDate,$hideTask, $oldTitle);
+        if($stmt->execute()){
+            echo "Task added successfully!";
         }
-        echo('</select><br>Create: <input type="submit" id="submit" name="submit"><br><br>
-            </form>');
+
     }
+    else{
+        $sql = 'UPDATE credentials.tasktable SET task_title = ?, task_content = ?, task_progress = ?, task_priority = ?, task_completion_date = ?, task_hidden = ? WHERE task_title = ?;';
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('sssssss', $newTitle,$newContent,$newProgress,$newPriority,$newCompletionDate,$hideTask, $oldTitle);
+        if($stmt->execute()){
+            echo "Task added successfully!";
+        }
+    }
+
 }
+
+
 

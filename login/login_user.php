@@ -89,7 +89,7 @@ if(isset($_POST['submit'])){
                 $_SESSION["user"] = $user;
                 $_SESSION["level"] = $permissions;
 
-                echo ("Welcome " . $user . "You have " . $_SESSION["level"] . " permissions.");
+                echo ("Welcome " . $user . "You have " . $_SESSION["level"] . " permissions. ");
 
                 echo("<br><br><a href=../index.php>Go to user homepage</a>");
 

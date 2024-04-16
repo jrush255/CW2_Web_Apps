@@ -47,7 +47,7 @@ else{
 }
 //End Nav Stuff
 
-if(isset($_SESSION["level"])) {
+if(isset($_SESSION["level"]) and $_SESSION["level"] != "Guest"){
 
     $server_name = "localhost";
     $username = "WA_Insert";
@@ -66,6 +66,7 @@ if(isset($_SESSION["level"])) {
 
     //Remove session code later, needed now for testing
     echo ("Hi " . $_SESSION["user"] . " " . $_SESSION["code"]);
+    //
     echo("<h1>Create a new task!</h1>");
     echo("
     <form action='create_task.php' method='get'>
@@ -134,7 +135,7 @@ if(isset($_SESSION["level"])) {
         }
     }
 
-    else if ($_SESSION["level"] == "User" or $_SESSION["level"] == "Guest") {
+    else if ($_SESSION["level"] == "User") {
         echo('Create: <input type="submit" id="submit" name="submit"><br><br></form>');
 
         if(isset($_GET['submit'])){
@@ -157,12 +158,13 @@ if(isset($_SESSION["level"])) {
         }
 
     }
-    else{
-        echo("Error, broken session level");
-    }
 
 }
-
 else{
     echo ('<br><h2><a href="../login/login_user.php">Log in</a> to view this page.</h2>');
 }
+
+if ($_SESSION["level"] == "Guest"){
+    echo ('<br><h2>You do not have permission to access this page.</h2>');
+}
+

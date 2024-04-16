@@ -43,7 +43,7 @@ if(isset($_SESSION["level"])) {
 }
 else{
     echo ('</ul>');
-    echo ('<br><h2><a href="../login/login_user.php">Log in</a> to view this page.</h2>');
+
 }
 //End Nav Stuff
 
@@ -61,7 +61,7 @@ if ($conn->connect_error) {
     echo("<br>");
 }
 
-if ($_SESSION["level"] == "Admin") {
+if (isset($_SESSION["level"]) and $_SESSION["level"] == "Admin") {
 
     $sql = 'SELECT * FROM credentials.tasktable WHERE 1';
     $result = $conn->query($sql);
@@ -75,6 +75,8 @@ if ($_SESSION["level"] == "Admin") {
                 <th>Progress</th>
                 <th>Priority</th>
                 <th>Completion Date</th>
+                <th>Modified Date</th>
+                <th>Task Hidden?</th>
             </tr>
             ");
 
@@ -87,6 +89,8 @@ if ($_SESSION["level"] == "Admin") {
             $progress = $row['task_progress'];
             $priority = $row['task_priority'];
             $completion = $row['task_completion_date'];
+            $modified = $row['task_modified'];
+            $hidden = $row['task_hidden'];
             echo("<tr>
                 <td>$task_user</td>
                 <td>$title</td>
@@ -94,8 +98,13 @@ if ($_SESSION["level"] == "Admin") {
                 <td>$progress</td>
                 <td>$priority</td>
                 <td>$completion</td>
+                <td>$modified</td>
+                <td>$hidden</td>
              </tr>");
         }
     }
 
+}
+else{
+    echo ('<br><h2><a href="../login/login_user.php">Log in</a> to view this page.</h2>');
 }

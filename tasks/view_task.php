@@ -64,7 +64,7 @@ if(isset($_SESSION["level"])) {
         //Find tasks associated with user
         $user = $_SESSION["user"];
 
-        $sql = 'SELECT * FROM credentials.tasktable WHERE username = ?';
+        $sql = 'SELECT * FROM credentials.tasktable WHERE username = ? AND task_hidden = "N"';
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('s', $user);
         $stmt->execute();
