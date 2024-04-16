@@ -34,7 +34,7 @@ if(isset($_SESSION["level"])) {
     }
     if ($_SESSION["level"] == "Admin") {
         echo ('
-                
+                <li><a href="view_all_tasks.php">View All Tasks</a></li>
                 <li style="float:right"><a href="../registration/created_user.php">Register</a></li>
                 <li style="float:right"><a href="../remove/user_visibility.php">Manage User Visibility</a></li>
               ');
@@ -44,7 +44,6 @@ if(isset($_SESSION["level"])) {
 }
 else{
     echo ('</ul>');
-    echo ('<br><h2><a href="../login/login_user.php">Log in</a> to view this page.</h2>');
 }
 //End Nav Stuff
 

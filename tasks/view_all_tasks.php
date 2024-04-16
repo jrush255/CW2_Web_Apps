@@ -22,7 +22,7 @@ session_start();
 
 if(isset($_SESSION["level"])) {
     echo('
-            <li><a class="active" href="view_task.php">View Tasks</a></li>
+            <li><a href="view_task.php">View Tasks</a></li>
          ');
     if ($_SESSION["level"] != "Guest") {
         echo('
@@ -33,7 +33,7 @@ if(isset($_SESSION["level"])) {
     }
     if ($_SESSION["level"] == "Admin") {
         echo ('
-                <li><a href="view_all_tasks.php">View All Tasks</a></li>
+                <li><a class="active" href="view_all_tasks.php">View All Tasks</a></li>
                 <li style="float:right"><a href="../registration/created_user.php">Register</a></li>
                 <li style="float:right"><a href="../remove/user_visibility.php">Manage User Visibility</a></li>
               ');
@@ -47,6 +47,7 @@ else{
 }
 //End Nav Stuff
 
+
 //Server login
 $server_name = "localhost";
 $username = "WA_Select";
@@ -57,54 +58,44 @@ $conn = new mysqli($server_name, $username, $password);
 if ($conn->connect_error) {
     die("Connection Failed: " . $conn->connect_error);
 } else {
-    echo("Connection Success <br>");
+    echo("<br>");
 }
-if(isset($_SESSION["level"])) {
-    if ($_SESSION["level"] == "User" or $_SESSION["level"] == "Guest" or $_SESSION["level"] == "Admin") {
-        //Find tasks associated with user
-        $user = $_SESSION["user"];
 
-        $sql = 'SELECT * FROM credentials.tasktable WHERE username = ?';
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('s', $user);
-        $stmt->execute();
-        $result = $stmt->get_result();
+if ($_SESSION["level"] == "Admin") {
 
-        //Could add an option here to order tasks based on priority
+    $sql = 'SELECT * FROM credentials.tasktable WHERE 1';
+    $result = $conn->query($sql);
 
+    echo("
+            <table>
+            <tr>
+                <th>Username</th>
+                <th>Title</th>
+                <th>Contents</th>
+                <th>Progress</th>
+                <th>Priority</th>
+                <th>Completion Date</th>
+            </tr>
+            ");
 
-        //Outputs all tasks in a table format
-        echo("
-        <table>
-        <tr>
-            <th>Title</th>
-            <th>Contents</th>
-            <th>Progress</th>
-            <th>Priority</th>
-            <th>Completion Date</th>
-        </tr>
-        ");
-
-        if ($result->num_rows > 0) {
-            // Output data of each row
-            while ($row = $result->fetch_assoc()) {
-                $title = $row['task_title'];
-                $content = $row['task_content'];
-                $progress = $row['task_progress'];
-                $priority = $row['task_priority'];
-                $completion = $row['task_completion_date'];
-                echo("<tr>
+    if ($result->num_rows > 0) {
+        // Output data of each row
+        while ($row = $result->fetch_assoc()) {
+            $task_user = $row['username'];
+            $title = $row['task_title'];
+            $content = $row['task_content'];
+            $progress = $row['task_progress'];
+            $priority = $row['task_priority'];
+            $completion = $row['task_completion_date'];
+            echo("<tr>
+                <td>$task_user</td>
                 <td>$title</td>
                 <td>$content</td>
                 <td>$progress</td>
                 <td>$priority</td>
                 <td>$completion</td>
              </tr>");
-            }
         }
-
-
     }
 
 }
-
