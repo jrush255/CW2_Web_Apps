@@ -69,7 +69,7 @@ if(isset($_SESSION["level"]) and $_SESSION["level"] != "Guest"){
     //
     echo("<h1>Create a new task!</h1>");
     echo("
-    <form action='create_task.php' method='get'>
+    <form action='create_task.php' method='post'>
         Task Title: <input type='text' id='title' name='title' required><br>
     Task Contents: <input type='text' id='content' name='content' required><br>
     Task Progress:<select id='progress' name='progress' required>
@@ -106,9 +106,9 @@ if(isset($_SESSION["level"]) and $_SESSION["level"] != "Guest"){
 
         }
 
-        if(isset($_GET['submit'])){
+        if(isset($_POST['submit'])){
 
-            $TaskUsername = ($_GET['username']);
+            $TaskUsername = ($_POST['username']);
 
             //Grab the right user ID for the selected user from drop-down
             $sql = 'SELECT user_id FROM credentials.methodone WHERE username = ?';
@@ -120,11 +120,11 @@ if(isset($_SESSION["level"]) and $_SESSION["level"] != "Guest"){
             $UserID = $row['user_id'];
 
 
-            $TaskName = $_GET['title'];
-            $TaskContent = $_GET['content'];
-            $TaskProgress = $_GET['progress'];
-            $TaskPriority = $_GET['priority'];
-            $TaskCompletionDate = $_GET['completionDate'];
+            $TaskName = $_POST['title'];
+            $TaskContent = $_POST['content'];
+            $TaskProgress = $_POST['progress'];
+            $TaskPriority = $_POST['priority'];
+            $TaskCompletionDate = $_POST['completionDate'];
 
             $sql = "INSERT INTO credentials.tasktable (`user_id`, `username`, `task_title`, `task_content`, `task_progress`, `task_priority`, `task_completion_date`) VALUES (?,?,?,?,?,?,?)";
             $stmt = $conn->prepare($sql);
@@ -138,12 +138,12 @@ if(isset($_SESSION["level"]) and $_SESSION["level"] != "Guest"){
     else if ($_SESSION["level"] == "User") {
         echo('Create: <input type="submit" id="submit" name="submit"><br><br></form>');
 
-        if(isset($_GET['submit'])){
-            $TaskName = $_GET['title'];
-            $TaskContent = $_GET['content'];
-            $TaskProgress = $_GET['progress'];
-            $TaskPriority = $_GET['priority'];
-            $TaskCompletionDate = $_GET['completionDate'];
+        if(isset($_POST['submit'])){
+            $TaskName = $_POST['title'];
+            $TaskContent = $_POST['content'];
+            $TaskProgress = $_POST['progress'];
+            $TaskPriority = $_POST['priority'];
+            $TaskCompletionDate = $_POST['completionDate'];
 
             //Info obtained from session
             $UserID = $_SESSION["code"];
