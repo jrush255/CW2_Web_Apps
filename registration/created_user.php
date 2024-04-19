@@ -88,7 +88,7 @@ if(isset($_SESSION["level"])){
             die("Connection Failed: " . $conn->connect_error);
         }
         else{
-            echo("Connection Success <br>");
+            echo("<br>");
         }
 
         //Runs after input information has been submitted
@@ -129,7 +129,7 @@ if(isset($_SESSION["level"])){
     //Hopefully shouldn't see this message
     else
     {
-        echo("PLZ FIX");
+        echo("Error");
     }
 
 

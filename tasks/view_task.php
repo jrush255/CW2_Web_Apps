@@ -57,7 +57,7 @@ $conn = new mysqli($server_name, $username, $password);
 if ($conn->connect_error) {
     die("Connection Failed: " . $conn->connect_error);
 } else {
-    echo("Connection Success <br>");
+    echo("<br>");
 }
 if(isset($_SESSION["level"])) {
     if ($_SESSION["level"] == "User" or $_SESSION["level"] == "Guest" or $_SESSION["level"] == "Admin") {

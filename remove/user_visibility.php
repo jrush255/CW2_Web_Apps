@@ -68,7 +68,7 @@ if(isset($_SESSION["level"])) {
         if ($conn->connect_error) {
             die("Connection Failed: " . $conn->connect_error);
         } else {
-            echo("Connection Success <br>");
+            echo("<br>");
         }
         //Get list of usernames
         //Output to drop-down in form
@@ -147,7 +147,7 @@ if(isset($_SESSION["level"])) {
             if ($conn->connect_error) {
                 die("Connection Failed: " . $conn->connect_error);
             } else {
-                echo("Connection Success <br>");
+                echo("<br>");
             }
 
             //Set the drop-down selection as variable
@@ -186,7 +186,7 @@ if(isset($_SESSION["level"])) {
             if ($conn->connect_error) {
                 die("Connection Failed: " . $conn->connect_error);
             } else {
-                echo("Connection Success <br>");
+                echo("<br>");
             }
 
             //Set the drop-down selection as variable
@@ -225,7 +225,7 @@ if(isset($_SESSION["level"])) {
                 if ($conn->connect_error) {
                     die("Connection Failed: " . $conn->connect_error);
                 } else {
-                    echo("Connection Success <br>");
+                    echo("<br>");
                 }
 
                 $del_user = $_POST['username'];
@@ -256,7 +256,7 @@ if(isset($_SESSION["level"])) {
             echo("You do not have permission to manage users " . $_SESSION["user"] . ". You are a " . $_SESSION["level"]);
         } //Hopefully shouldn't see this message
         else {
-            echo("PLZ FIX");
+            echo("Error");
         }
 
 }

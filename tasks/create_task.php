@@ -66,7 +66,7 @@ if(isset($_SESSION["level"]) and $_SESSION["level"] != "Guest"){
         die("Connection Failed: " . $conn->connect_error);
     }
     else{
-        echo("Connection Success <br>");
+        echo("<br>");
     }
 
     //Remove session code later, needed now for testing

@@ -48,7 +48,7 @@ if ($conn->connect_error)
     die("Connection Failed: " . $conn->connect_error);
 }
 else{
-    echo("Connection Success <br>");
+    echo("<br>");
 }
 
 //Checks there is an input before searching database

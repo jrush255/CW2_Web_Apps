@@ -64,7 +64,7 @@ if(isset($_SESSION["level"]) and ($_SESSION["level"]) != "Guest") {
     if ($conn->connect_error) {
         die("Connection Failed: " . $conn->connect_error);
     } else {
-        echo("Connection Success <br>");
+        echo("<br>");
     }
 
     if ($_SESSION["level"] == "User") {
