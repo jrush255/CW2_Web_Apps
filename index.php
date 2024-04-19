@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="styles.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Home Page</title>
 </head>
 
@@ -54,16 +53,10 @@ else{
 
 
 
-//Restrict options based on user level (eg more options for admin, less for guest)
-
-
 if(isset($_SESSION["code"])){
     echo ("Welcome " . $_SESSION["user"]);
 
-    echo("<br><br> What would you like to do today " . $_SESSION["user"] . "? <br>
-
-
-");
+    echo("<br><br> What would you like to do today " . $_SESSION["user"] . "? <br>");
 
 
 

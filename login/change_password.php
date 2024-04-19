@@ -60,6 +60,11 @@ if(isset($_POST['submit'])){
     $stmt->bind_param('ss', $hashed_new_password, $UserID);
     if ($stmt->execute()) {
         echo ("Password Changed Successfully!");
+
+        $sql = "UPDATE credentials.methodone SET require_pass_reset = 'N' WHERE user_id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('s', $UserID);
+        $stmt->execute();
     }
     else{
         echo("Oops, it broke");

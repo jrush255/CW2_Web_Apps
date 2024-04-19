@@ -14,7 +14,7 @@
 
 <form action="login_user.php" method="post">
     Username: <input type="text" name="username" required><br>
-    Password: <input type="text" name="password" required><br>
+    Password: <input type="password" name="password" required><br>
     <input type="submit" name="submit">
 </form>
 
@@ -98,9 +98,17 @@ if(isset($_POST['submit'])){
 
                 echo("<br><br><a href=../index.php>Go to user homepage</a>");
 
-                //SQL query to check if user needs to change password
-                //If yes
-                //header('Location: /change_password.php');
+                $sql = 'SELECT require_pass_reset FROM credentials.methodone WHERE username = ?';
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param('s', $_SESSION["user"]);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $row = $result->fetch_assoc();
+                $passReset = $row['require_pass_reset'];
+
+                if($passReset == "Y"){
+                    header('Location: /Assignment%20Website/login/change_password.php');
+                }
 
 
 
