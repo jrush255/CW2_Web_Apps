@@ -164,33 +164,5 @@ if(isset($_SESSION["level"]) and ($_SESSION["level"]) != "Guest") {
 
     }
 
-
-
-/*
-    else if ($_SESSION["level"] == "User") {
-        echo('Create: <input type="submit" id="submit" name="submit"><br><br></form>');
-
-        if(isset($_GET['submit'])){
-            $TaskName = $_GET['title'];
-            $TaskContent = $_GET['content'];
-            $TaskProgress = $_GET['progress'];
-            $TaskPriority = $_GET['priority'];
-            $TaskCompletionDate = $_GET['completionDate'];
-
-            //Info obtained from session
-            $UserID = $_SESSION["code"];
-            $TaskUsername = $_SESSION["user"];
-
-            $sql = "INSERT INTO credentials.tasktable (`user_id`, `username`, `task_title`, `task_content`, `task_progress`, `task_priority`, `task_completion_date`) VALUES (?,?,?,?,?,?,?)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param('sssssss', $UserID,$TaskUsername,$TaskName,$TaskContent,$TaskProgress,$TaskPriority,$TaskCompletionDate);
-            if($stmt->execute()){
-                echo "Task added successfully!";
-            }
-        }
-
-    }
-*/
-
 }
 

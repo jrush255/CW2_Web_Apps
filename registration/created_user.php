@@ -11,6 +11,12 @@
 </html>
 
 <?php
+function sort_input($data){
+    $data = trim($data, " ");
+    $data = stripslashes($data);
+    return htmlspecialchars($data);
+}
+
 //Start of Nav stuff
 echo ('
     <ul>
@@ -88,11 +94,11 @@ if(isset($_SESSION["level"])){
         //Runs after input information has been submitted
         if(isset($_POST['submit'])){
 
-            $user = $_POST['username'];
-            $fname = $_POST['fname'];
-            $sname = $_POST['sname'];
-            $email = $_POST['email'];
-            $user_password = $_POST['password'];
+            $user = sort_input($_POST['username']);
+            $fname = sort_input($_POST['fname']);
+            $sname = sort_input($_POST['sname']);
+            $email = sort_input($_POST['email']);
+            $user_password = sort_input($_POST['password']);
             $access_level = $_POST['access_level'];
 
             try {

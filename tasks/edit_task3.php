@@ -10,6 +10,12 @@
 </html>
 
 <?php
+function sort_input($data){
+    $data = trim($data, " ");
+    $data = stripslashes($data);
+    return htmlspecialchars($data);
+}
+
 //Start of Nav
 echo ('
     <ul>
@@ -71,8 +77,8 @@ if(isset($_SESSION["level"]) and ($_SESSION["level"]) != "Guest") {
 
     //Get entries from previous page
     $oldTitle = $_POST['oldTitle'];
-    $newTitle = $_POST['newTitle'];
-    $newContent = $_POST['newContent'];
+    $newTitle = sort_input($_POST['newTitle']);
+    $newContent = sort_input($_POST['newContent']);
     $newProgress = $_POST['newProgress'];
     $newPriority = $_POST['newPriority'];
     $newCompletionDate = $_POST['newCompletionDate'];

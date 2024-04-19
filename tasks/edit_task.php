@@ -10,6 +10,7 @@
 </html>
 
 <?php
+
 //Start of Nav
 echo ('
     <ul>

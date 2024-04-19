@@ -11,6 +11,11 @@
 </html>
 
 <?php
+function sort_input($data){
+    $data = trim($data, " ");
+    $data = stripslashes($data);
+    return htmlspecialchars($data);
+}
 
 //Start of Nav stuff
 echo ('
@@ -120,8 +125,8 @@ if(isset($_SESSION["level"]) and $_SESSION["level"] != "Guest"){
             $UserID = $row['user_id'];
 
 
-            $TaskName = $_POST['title'];
-            $TaskContent = $_POST['content'];
+            $TaskName = sort_input($_POST['title']);
+            $TaskContent = sort_input($_POST['content']);
             $TaskProgress = $_POST['progress'];
             $TaskPriority = $_POST['priority'];
             $TaskCompletionDate = $_POST['completionDate'];
@@ -139,8 +144,8 @@ if(isset($_SESSION["level"]) and $_SESSION["level"] != "Guest"){
         echo('Create: <input type="submit" id="submit" name="submit"><br><br></form>');
 
         if(isset($_POST['submit'])){
-            $TaskName = $_POST['title'];
-            $TaskContent = $_POST['content'];
+            $TaskName = sort_input($_POST['title']);
+            $TaskContent = sort_input($_POST['content']);
             $TaskProgress = $_POST['progress'];
             $TaskPriority = $_POST['priority'];
             $TaskCompletionDate = $_POST['completionDate'];

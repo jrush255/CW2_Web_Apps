@@ -22,6 +22,11 @@
 </html>
 
 <?php
+function sort_input($data){
+    $data = trim($data, " ");
+    $data = stripslashes($data);
+    return htmlspecialchars($data);
+}
 
 session_start();
 
@@ -48,8 +53,8 @@ else{
 
 //Checks there is an input before searching database
 if(isset($_POST['submit'])){
-    $user = $_POST['username'];
-    $user_password = $_POST['password'];
+    $user = sort_input($_POST['username']);
+    $user_password = sort_input($_POST['password']);
 
     //Check username
     $sql = 'SELECT * FROM credentials.methodone WHERE username = ?';
@@ -93,7 +98,11 @@ if(isset($_POST['submit'])){
 
                 echo("<br><br><a href=../index.php>Go to user homepage</a>");
 
-                //Homepage will now change
+                //SQL query to check if user needs to change password
+                //If yes
+                //header('Location: /change_password.php');
+
+
 
 
             }
