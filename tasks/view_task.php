@@ -36,6 +36,7 @@ if(isset($_SESSION["level"])) {
                 <li><a href="view_all_tasks.php">View All Tasks</a></li>
                 <li style="float:right"><a href="../registration/created_user.php">Register</a></li>
                 <li style="float:right"><a href="../remove/user_visibility.php">Manage User Visibility</a></li>
+                <li style="float:right"><a href="../registration/user_access.php">Manage User Access</a></li>
               ');
 
     }
