@@ -25,12 +25,12 @@ session_start();
 if(isset($_SESSION["level"])) {
     echo('
             <li><a href="../tasks/view_task.php">View Tasks</a></li>
+            <li style="float:right"><a href="../logout/logout_user.php">Log Out</a></li>
          ');
     if ($_SESSION["level"] != "Guest") {
         echo('
                 <li><a href="../tasks/create_task.php">Create Tasks</a></li>
                 <li><a href="../tasks/edit_task.php">Edit Tasks</a></li>
-                <li style="float:right"><a href="../logout/logout_user.php">Log Out</a></li>
             ');
     }
     if ($_SESSION["level"] == "Admin") {
@@ -252,10 +252,10 @@ if(isset($_SESSION["level"])) {
         }
 
 
-        } //Users and Guests cannot use this page
+        } //Permission Denied
         else if ($_SESSION["level"] == "User" or $_SESSION["level"] == "Guest") {
             echo("You do not have permission to manage users " . $_SESSION["user"] . ". You are a " . $_SESSION["level"]);
-        } //Hopefully shouldn't see this message
+        }
         else {
             echo("Error");
         }

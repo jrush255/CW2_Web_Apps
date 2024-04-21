@@ -53,13 +53,11 @@ else{
 //End Nav
 if(isset($_SESSION["level"]) and ($_SESSION["level"]) != "Guest") {
 
-    //Log into server
+    //Server log in and connection
     $server_name = "localhost";
     $username = "WA_Update";
     $password = "da5uTkIz)0h8aJ[U";
-
     $conn = new mysqli($server_name, $username, $password);
-    //Check connection
     if ($conn->connect_error) {
         die("Connection Failed: " . $conn->connect_error);
     } else {
@@ -68,7 +66,6 @@ if(isset($_SESSION["level"]) and ($_SESSION["level"]) != "Guest") {
 
     //Get title from previous page
     $task_title_res = $_POST['posted_task_title'];
-    echo($task_title_res);
 
     //SQL
     $sql = 'SELECT * FROM credentials.tasktable WHERE task_title = ?';
@@ -116,7 +113,7 @@ if(isset($_SESSION["level"]) and ($_SESSION["level"]) != "Guest") {
     echo('
     <h4>Edit Tasks</h4>
     <form action="edit_task3.php" method="post">
-        Old Task Title: <input type="hidden" id="oldTitle" name="oldTitle" value="' . $task_title_res . '"" required></input><br>
+        <input type="hidden" id="oldTitle" name="oldTitle" value="' . $task_title_res . '"" required></input><br>
         Task Title: <input type="text" id="newTitle" name="newTitle" value="' . $title . '" required><br>
     Task Contents: <input type="text" id="newContent" name="newContent" value="' . $content . '"required><br>
     Task Progress:<select id="newProgress" name="newProgress" required>
@@ -151,19 +148,19 @@ if(isset($_SESSION["level"]) and ($_SESSION["level"]) != "Guest") {
                 echo '<option value="' . $data . '">'. $data . '</option>';
             }
 
-            //End of HTML form
+            //End of HTML form for admin
             echo('</select><br>Create: <input type="submit" id="submit" name="submit"><br><br>
             </form>');
 
 
 
-        }
-        else{
-            echo('</select><br>Create: <input type="submit" id="submit" name="submit"><br><br>
-            </form>');
         }
 
     }
-
+    //End of HTML form for users
+    else{
+        echo('<br>Create: <input type="submit" id="submit" name="submit"><br><br>
+            </form>');
+    }
 }
 

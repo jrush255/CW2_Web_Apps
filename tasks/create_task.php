@@ -29,6 +29,7 @@ session_start();
 if(isset($_SESSION["level"])) {
     echo('
             <li><a href="view_task.php">View Tasks</a></li>
+            <li style="float:right"><a href="../logout/logout_user.php">Log Out</a></li>
          ');
     if ($_SESSION["level"] != "Guest") {
         echo('
@@ -70,9 +71,6 @@ if(isset($_SESSION["level"]) and $_SESSION["level"] != "Guest"){
         echo("<br>");
     }
 
-    //Remove session code later, needed now for testing
-    echo ("Hi " . $_SESSION["user"] . " " . $_SESSION["code"]);
-    //
     echo("<h1>Create a new task!</h1>");
     echo("
     <form action='create_task.php' method='post'>
@@ -132,12 +130,22 @@ if(isset($_SESSION["level"]) and $_SESSION["level"] != "Guest"){
             $TaskPriority = $_POST['priority'];
             $TaskCompletionDate = $_POST['completionDate'];
 
-            $sql = "INSERT INTO credentials.tasktable (`user_id`, `username`, `task_title`, `task_content`, `task_progress`, `task_priority`, `task_completion_date`) VALUES (?,?,?,?,?,?,?)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param('sssssss', $UserID, $TaskUsername,$TaskName,$TaskContent,$TaskProgress,$TaskPriority,$TaskCompletionDate);
-            if($stmt->execute()){
-                echo "Task added successfully!";
+            try{
+                $sql = "INSERT INTO credentials.tasktable (`user_id`, `username`, `task_title`, `task_content`, `task_progress`, `task_priority`, `task_completion_date`) VALUES (?,?,?,?,?,?,?)";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param('sssssss', $UserID, $TaskUsername,$TaskName,$TaskContent,$TaskProgress,$TaskPriority,$TaskCompletionDate);
+                if($stmt->execute()){
+                    echo "Task added successfully!";
+                }
             }
+            catch(mysqli_sql_exception $error){
+                $code = $error->getCode();
+                if($code = 1062){
+                    echo "Task with that title already exists";
+                }
+            }
+
+
         }
     }
 
@@ -155,12 +163,23 @@ if(isset($_SESSION["level"]) and $_SESSION["level"] != "Guest"){
             $UserID = $_SESSION["code"];
             $TaskUsername = $_SESSION["user"];
 
-            $sql = "INSERT INTO credentials.tasktable (`user_id`, `username`, `task_title`, `task_content`, `task_progress`, `task_priority`, `task_completion_date`) VALUES (?,?,?,?,?,?,?)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param('sssssss', $UserID,$TaskUsername,$TaskName,$TaskContent,$TaskProgress,$TaskPriority,$TaskCompletionDate);
-            if($stmt->execute()){
-                echo "Task added successfully!";
+            try{
+                $sql = "INSERT INTO credentials.tasktable (`user_id`, `username`, `task_title`, `task_content`, `task_progress`, `task_priority`, `task_completion_date`) VALUES (?,?,?,?,?,?,?)";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param('sssssss', $UserID,$TaskUsername,$TaskName,$TaskContent,$TaskProgress,$TaskPriority,$TaskCompletionDate);
+                if($stmt->execute()){
+                    echo "Task added successfully!";
+                }
             }
+            catch(mysqli_sql_exception $error){
+                $code = $error->getCode();
+                if($code = 1062){
+                    echo "Task with that title already exists";
+                }
+            }
+
+
+
         }
 
     }

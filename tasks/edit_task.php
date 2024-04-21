@@ -24,6 +24,7 @@ session_start();
 if(isset($_SESSION["level"])) {
     echo('
             <li><a href="view_task.php">View Tasks</a></li>
+            <li style="float:right"><a href="../logout/logout_user.php">Log Out</a></li>
          ');
     if ($_SESSION["level"] == "Guest"){
         echo ('</ul>');

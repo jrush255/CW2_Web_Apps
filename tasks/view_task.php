@@ -23,12 +23,13 @@ session_start();
 if(isset($_SESSION["level"])) {
     echo('
             <li><a class="active" href="view_task.php">View Tasks</a></li>
+            <li style="float:right"><a href="../logout/logout_user.php">Log Out</a></li>
          ');
     if ($_SESSION["level"] != "Guest") {
         echo('
                 <li><a href="create_task.php">Create Tasks</a></li>
                 <li><a href="edit_task.php">Edit Tasks</a></li>
-                <li style="float:right"><a href="../logout/logout_user.php">Log Out</a></li>
+                
             ');
     }
     if ($_SESSION["level"] == "Admin") {

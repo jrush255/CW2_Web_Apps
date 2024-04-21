@@ -98,21 +98,41 @@ if(isset($_SESSION["level"]) and ($_SESSION["level"]) != "Guest") {
         $row = $result->fetch_assoc();
         $newUserID = $row['user_id'];
 
-        $sql = 'UPDATE credentials.tasktable SET user_id = ?, username = ?, task_title = ?, task_content = ?, task_progress = ?, task_priority = ?, task_completion_date = ?, task_hidden = ?, task_modified = now() WHERE task_title = ?;';
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sssssssss', $newUserID, $newUsername,$newTitle,$newContent,$newProgress,$newPriority,$newCompletionDate,$hideTask, $oldTitle);
-        if($stmt->execute()){
-            echo "Task updated successfully!";
+        try{
+            $sql = 'UPDATE credentials.tasktable SET user_id = ?, username = ?, task_title = ?, task_content = ?, task_progress = ?, task_priority = ?, task_completion_date = ?, task_hidden = ?, task_modified = now() WHERE task_title = ?;';
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('sssssssss', $newUserID, $newUsername,$newTitle,$newContent,$newProgress,$newPriority,$newCompletionDate,$hideTask, $oldTitle);
+            if($stmt->execute()){
+                echo "Task updated successfully!";
+            }
         }
+        catch(mysqli_sql_exception $error){
+            $code = $error->getCode();
+            if($code = 1062){
+                echo "Task with that title already exists";
+            }
+        }
+
+
 
     }
     else{
-        $sql = 'UPDATE credentials.tasktable SET task_title = ?, task_content = ?, task_progress = ?, task_priority = ?, task_completion_date = ?, task_hidden = ?, task_modified = now() WHERE task_title = ?;';
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sssssss', $newTitle,$newContent,$newProgress,$newPriority,$newCompletionDate,$hideTask, $oldTitle);
-        if($stmt->execute()){
-            echo "Task updated successfully!";
+
+        try{
+            $sql = 'UPDATE credentials.tasktable SET task_title = ?, task_content = ?, task_progress = ?, task_priority = ?, task_completion_date = ?, task_hidden = ?, task_modified = now() WHERE task_title = ?;';
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('sssssss', $newTitle,$newContent,$newProgress,$newPriority,$newCompletionDate,$hideTask, $oldTitle);
+            if($stmt->execute()){
+                echo "Task updated successfully!";
+            }
         }
+        catch(mysqli_sql_exception $error){
+            $code = $error->getCode();
+            if($code = 1062){
+                echo "Task with that title already exists";
+            }
+        }
+
     }
 
 }
