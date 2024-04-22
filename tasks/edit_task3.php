@@ -58,10 +58,6 @@ else{
 }
 //End Nav
 
-
-//say task has now been updated
-//sql query to fetch new title from database
-//output the newly updated task
 if(isset($_SESSION["level"]) and ($_SESSION["level"]) != "Guest") {
     //Log into server
     $server_name = "localhost";
