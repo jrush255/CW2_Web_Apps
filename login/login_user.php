@@ -30,11 +30,6 @@ function sort_input($data){
 
 session_start();
 
-//Check info is correct against the database
-//prepare statements before checking to prevent database from being dropped
-//check username and password
-//result for verified user and separate result for incorrect user
-
 //Login info
 $server_name = "localhost";
 $username = "WA_Select";
@@ -65,7 +60,6 @@ if(isset($_POST['submit'])){
     if ($stmt->execute()) {
         //Getting Result
         $res = $stmt->get_result();
-        //get the first row
         if($res->num_rows > 0){
             //Grab information from row
             $row = $res->fetch_assoc();
@@ -82,10 +76,9 @@ if(isset($_POST['submit'])){
             //Verifying User Password
             // Verify stored hash against plain-text password
             if (password_verify($user_password, $hash)) {
-                // Check if a newer hashing algorithm is available
-                // or the cost has changed
+                // Check if a newer hashing algorithm or change in cost
                 if (password_needs_rehash($hash, PASSWORD_DEFAULT, $options)) {
-                    // If so, create a new hash, and replace the old one
+                    // If yes, a new hash is created to replace the previous one
                     $newHash = password_hash($password, PASSWORD_DEFAULT, $options);
                 }
 
